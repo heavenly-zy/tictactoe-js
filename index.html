@@ -12,39 +12,39 @@
 <body>
     <div class="container">
         <div class="players">
-            <div id="p1"><span class="caret"></span></div>
+            <div id="p1" class="vue"><span class="caret"></span></div>
             <div class="vs"></div>
-            <div class="p2"><span class="caret"></span></div>
+            <div id="p2" class="react"><span class="caret"></span></div>
             <button id="dice-p1" class="dice"></button>
             <button id="dice-p2" class="dice"></button>
         </div>
-    </div>
-    <div class="playground">
-        <div class="row">
-            <div class="square" data-index="0"></div>
-            <div class="square" data-index="1"></div>
-            <div class="square" data-index="2"></div>
-        </div>
-        <div class="row">
-            <div class="square" data-index="3"></div>
-            <div class="square" data-index="4"></div>
-            <div class="square" data-index="5"></div>
-        </div>
-        <div class="row">
-            <div class="square" data-index="6"></div>
-            <div class="square" data-index="7"></div>
-            <div class="square" data-index="8"></div>
-        </div>
-        <div class="overlay" hidden>
-            <button class="btn start">Start</button>
-            <div class="winner">
-                <img src="imgs/win.svg" alt="Winner">
-                <div class="logo"></div>
+        <div class="playground">
+            <div class="row">
+                <div class="square vue" data-index="0"></div>
+                <div class="square react" data-index="1"></div>
+                <div class="square angular" data-index="2"></div>
+            </div>
+            <div class="row">
+                <div class="square" data-index="3"></div>
+                <div class="square" data-index="4"></div>
+                <div class="square" data-index="5"></div>
+            </div>
+            <div class="row">
+                <div class="square" data-index="6"></div>
+                <div class="square" data-index="7"></div>
+                <div class="square" data-index="8"></div>
+            </div>
+            <div class="overlay">
+                <button class="btn start" hidden>Start</button>
+                <div class="winner vue">
+                    <img class="badge" src="imgs/win.svg" alt="Winner">
+                    <div class="logo"></div>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="controls">
-        <button class="btn reset">Reset</button>
+        <div class="controls">
+            <button class="btn reset">Reset</button>
+        </div>
     </div>
 </body>
 
