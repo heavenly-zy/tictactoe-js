@@ -12,9 +12,9 @@
 <body>
     <div class="container">
         <div class="players">
-            <div id="p1" class="vue"><span class="caret"></span></div>
+            <div id="p1"><span></span></div>
             <div class="vs"></div>
-            <div id="p2" class="react"><span class="caret"></span></div>
+            <div id="p2"><span></span></div>
             <button id="dice-p1" class="dice"></button>
             <button id="dice-p2" class="dice"></button>
         </div>
@@ -35,8 +35,8 @@
                 <div class="square" data-index="8"></div>
             </div>
             <div class="overlay">
-                <button class="btn start" hidden>Start</button>
-                <div class="winner vue">
+                <button class="btn start">Start</button>
+                <div class="winner vue" hidden>
                     <img class="badge" src="imgs/win.svg" alt="Winner">
                     <div class="logo"></div>
                 </div>
@@ -46,6 +46,7 @@
             <button class="btn reset">Reset</button>
         </div>
     </div>
+    <script src="./js/main.js"></script>
 </body>
 
 </html>
