@@ -12,17 +12,17 @@
 <body>
     <div class="container">
         <div class="players">
-            <div id="p1"><span></span></div>
+            <div id="p1"><span class="caret" hidden></span></div>
             <div class="vs"></div>
-            <div id="p2"><span></span></div>
+            <div id="p2"><span class="caret" hidden></span></div>
             <button id="dice-p1" class="dice"></button>
             <button id="dice-p2" class="dice"></button>
         </div>
         <div class="playground">
             <div class="row">
-                <div class="square vue" data-index="0"></div>
-                <div class="square react" data-index="1"></div>
-                <div class="square angular" data-index="2"></div>
+                <div class="square" data-index="0"></div>
+                <div class="square" data-index="1"></div>
+                <div class="square" data-index="2"></div>
             </div>
             <div class="row">
                 <div class="square" data-index="3"></div>
@@ -43,7 +43,7 @@
             </div>
         </div>
         <div class="controls">
-            <button class="btn reset">Reset</button>
+            <button class="btn reset" disabled>Reset</button>
         </div>
     </div>
     <script src="./js/main.js"></script>
