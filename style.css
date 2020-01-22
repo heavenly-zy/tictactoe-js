@@ -127,6 +127,11 @@ img {max-width: 100%; max-height: 100%;}
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: all .5s ease;
+}
+
+.playground .overlay.minimize{
+    transform: scale(0);
 }
 
 .btn {
