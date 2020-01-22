@@ -44,7 +44,7 @@
         this.p2.render()
         this.$diceP1 = this.$el.querySelector('#dice-p1')
         this.$diceP2 = this.$el.querySelector('#dice-p2')
-
+        this.$winner = this.$el.querySelector('.winner')
         this.$start = this.$el.querySelector('.btn.start')
         this.$reset = this.$el.querySelector('.btn.reset')
         this.$overlay = this.$el.querySelector('.overlay')
@@ -52,7 +52,7 @@
 
         this.$diceP1.addEventListener('click', Game.onClickDiceP1.bind(this))
         this.$diceP2.addEventListener('click', Game.onClickDiceP2.bind(this))
-
+        
         this.$start.addEventListener('click', this.onClickStart.bind(this))
 
         var $squares = Array.from(this.$el.querySelectorAll('.square'))
@@ -91,8 +91,12 @@
         if (this.isEnded()) return
         if (e.target.classList.length > 1) return
         this.squares[e.currentTarget.dataset.index].set(this.activePlayer().name, this.p1.active ? 1 : -1)
+        var winner = this.getWinner()
+        if (winner) {
+            this.showWinner(winner)
+            return
+        }
         this.switchPlayer()
-        this.calcWinValues()
     }
     Game.prototype.switchPlayer = function () {
         if (this.p1.active) {
@@ -132,7 +136,12 @@
     Game.prototype.isEnded = function () {
         return !!this.getWinner() || this.isAllSquaresUsed()
     }
-
+    Game.prototype.showWinner = function (winner) {
+       this.$overlay.hidden = false
+       this.$winner.hidden = false
+       this.$start.hidden = true
+       this.$winner.classList.add(winner.name)
+    }
     document.addEventListener('DOMContentLoaded', function () {
         // 当初始的HTML文档被完全加载和解析完成之后，DOMContentLoaded事件被触发，而无需等待样式表、图像和子框架的完成加载。注意与onload的区别
         window.game = new Game(document.querySelector('.container'))
