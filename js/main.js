@@ -88,9 +88,11 @@
         return this.p1.active ? this.p1 : this.p2
     }
     Game.prototype.onClickSquare = function (e) {
+        if (this.isEnded()) return
         if (e.target.classList.length > 1) return
         this.squares[e.currentTarget.dataset.index].set(this.activePlayer().name, this.p1.active ? 1 : -1)
         this.switchPlayer()
+        this.calcWinValues()
     }
     Game.prototype.switchPlayer = function () {
         if (this.p1.active) {
@@ -100,6 +102,35 @@
             this.p1.setActive(true)
             this.p2.setActive(false)
         }
+    }
+    Game.prototype.isAllSquaresUsed = function () {
+        return !this.squares.find(square => square.value === 0)
+    }
+    Game.prototype.calcWinValues = function () {
+        var wins = [
+            [0, 1, 2],
+            [3, 4, 5],
+            [6, 7, 8],
+            [0, 3, 6],
+            [1, 4, 7],
+            [2, 5, 8],
+            [0, 4, 8],
+            [2, 4, 6]
+        ]
+        var result = [];
+        for (var i = 0; i < wins.length; i++) {
+            var value = this.squares[wins[i][0]].value + this.squares[wins[i][1]].value + this.squares[wins[i][2]].value
+            result.push(value)
+        }
+        return result;
+    }
+    Game.prototype.getWinner = function () {
+        var calcResult = this.calcWinValues()
+        if (calcResult.find(value => value === 3)) return this.p1
+        if (calcResult.find(value => value === -3)) return this.p2
+    }
+    Game.prototype.isEnded = function () {
+        return !!this.getWinner() || this.isAllSquaresUsed()
     }
 
     document.addEventListener('DOMContentLoaded', function () {
