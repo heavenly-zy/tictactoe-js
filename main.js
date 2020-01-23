@@ -97,7 +97,7 @@
     }
     Game.prototype.switchPlayer = function () {
         this.p1.setActive(this.p1.active ? false : true)
-        this.p2.setActive(this.p1.active ? true : false)
+        this.p2.setActive(this.p1.active ? false : true)
     }
     Game.prototype.isAllSquaresUsed = function () {
         return !this.squares.find(square => square.value === 0)
