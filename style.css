@@ -17,9 +17,9 @@ body {
 .container {
     width: 270px;
     position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%,-50%);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .players {
@@ -203,4 +203,10 @@ body {
 
 .winner.angular .logo {
     background-image: url('./imgs/angular.svg');
+}
+
+.deuce>span {
+    font-size: 30px;
+    font-weight: bold;
+    letter-spacing: 5px;
 }

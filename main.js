@@ -48,6 +48,7 @@
         this.$diceP1 = this.$el.querySelector('#dice-p1')
         this.$diceP2 = this.$el.querySelector('#dice-p2')
         this.$winner = this.$el.querySelector('.winner')
+        this.$deuce = this.$el.querySelector('.deuce')
         this.$start = this.$el.querySelector('.btn.start')
         this.$reset = this.$el.querySelector('.btn.reset')
         this.$overlay = this.$el.querySelector('.overlay')
@@ -93,6 +94,10 @@
             this.showWinner(winner)
             return
         }
+        if (this.getDeuce()) {
+            this.showDeuce()
+            return
+        }
         this.switchPlayer()
     }
     Game.prototype.switchPlayer = function () {
@@ -126,7 +131,7 @@
         if (calcResult.find(value => value === -3)) return this.p2
     }
     Game.prototype.isEnded = function () {
-        return !!this.getWinner() || this.isAllSquaresUsed()
+        return !!this.getWinner() || this.isAllSquaresUsed() || this.getDeuce()
     }
     Game.prototype.showWinner = function (winner) {
         this.$overlay.classList.add('minimize')
@@ -148,6 +153,24 @@
         this.$overlay.hidden = false
         this.$start.hidden = false
         this.$reset.disabled = true
+        this.$deuce.hidden = true
+    }
+    Game.prototype.getWinner = function () {
+        var calcResult = this.calcWinValues()
+        if (calcResult.find(value => value === 3)) return this.p1
+        if (calcResult.find(value => value === -3)) return this.p2
+    }
+    Game.prototype.getDeuce = function () {
+        return this.isAllSquaresUsed() && this.getWinner() === undefined // square使用完且还未分出胜负即为平局
+    }
+    Game.prototype.showDeuce = function () {
+        this.$overlay.classList.add('minimize')
+        this.$overlay.hidden = false
+        this.$deuce.hidden = false
+        this.$start.hidden = true
+        setTimeout(() => {
+            this.$overlay.classList.remove('minimize')
+        }, 300)
     }
     document.addEventListener('DOMContentLoaded', function () {
         // 当初始的HTML文档被完全加载和解析完成之后，DOMContentLoaded事件被触发，而无需等待样式表、图像和子框架的完成加载。注意与onload的区别
