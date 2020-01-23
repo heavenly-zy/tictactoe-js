@@ -51,29 +51,24 @@
         this.$start = this.$el.querySelector('.btn.start')
         this.$reset = this.$el.querySelector('.btn.reset')
         this.$overlay = this.$el.querySelector('.overlay')
+        this.$playground = this.$el.querySelector('.playground')
         this.$reset.disabled = true
 
-        this.$diceP1.addEventListener('click', Game.onClickDiceP1.bind(this))
-        this.$diceP2.addEventListener('click', Game.onClickDiceP2.bind(this))
+        this.$diceP1.addEventListener('click', Game.onClickDice.bind(this))
+        this.$diceP2.addEventListener('click', Game.onClickDice.bind(this))
 
         this.$start.addEventListener('click', this.onClickStart.bind(this))
         this.$reset.addEventListener('click', this.onClickReset.bind(this))
 
         var $squares = Array.from(this.$el.querySelectorAll('.square'))
-        var onClickSquare = this.onClickSquare.bind(this)
-        $squares.forEach(function (square) {
-            square.addEventListener('click', onClickSquare)
-        })
+        this.$playground.addEventListener('click', this.onClickSquare.bind(this))
         this.squares = $squares.map(function (square) {
             return new Square(square)
         })
     }
-    Game.onClickDiceP1 = function () {
-        this.p1.reset(Player.random(this.p1.name))
-        this.$start.disabled = (this.p1.name === this.p2.name)
-    }
-    Game.onClickDiceP2 = function () {
-        this.p2.reset(Player.random(this.p2.name))
+    Game.onClickDice = function (e) {
+        if (e.target.getAttribute('id') === 'dice-p1') this.p1.reset(Player.random(this.p1.name))
+        if (e.target.getAttribute('id') === 'dice-p2') this.p2.reset(Player.random(this.p2.name))
         this.$start.disabled = (this.p1.name === this.p2.name)
     }
     Game.prototype.onClickStart = function () {
@@ -91,9 +86,8 @@
         return this.p1.active ? this.p1 : this.p2
     }
     Game.prototype.onClickSquare = function (e) {
-        if (this.isEnded()) return
-        if (e.target.classList.length > 1) return
-        this.squares[e.currentTarget.dataset.index].set(this.activePlayer().name, this.p1.active ? 1 : -1)
+        if (e.target.className !== 'square' || this.isEnded() || e.target.classList.length > 1) return
+        this.squares[e.target.dataset.index].set(this.activePlayer().name, this.p1.active ? 1 : -1)
         var winner = this.getWinner()
         if (winner) {
             this.showWinner(winner)
@@ -102,13 +96,8 @@
         this.switchPlayer()
     }
     Game.prototype.switchPlayer = function () {
-        if (this.p1.active) {
-            this.p1.setActive(false)
-            this.p2.setActive(true)
-        } else {
-            this.p1.setActive(true)
-            this.p2.setActive(false)
-        }
+        this.p1.setActive(this.p1.active ? false : true)
+        this.p2.setActive(this.p1.active ? true : false)
     }
     Game.prototype.isAllSquaresUsed = function () {
         return !this.squares.find(square => square.value === 0)
