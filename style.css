@@ -9,9 +9,17 @@ img {max-width: 100%; max-height: 100%;}
     display: none !important;
 }
 
+body {
+    height: 100vh;
+    position: relative;
+}
+
 .container {
     width: 270px;
-    margin: 20px auto;
+    position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
 }
 
 .players {
@@ -44,7 +52,7 @@ img {max-width: 100%; max-height: 100%;}
 
 .players .angular {
     position: relative;
-    background-size: 85%;
+    background-size: 90%;
     background-image: url('../imgs/angular.svg');
 }
 
@@ -130,7 +138,7 @@ img {max-width: 100%; max-height: 100%;}
     transition: all .5s ease;
 }
 
-.playground .overlay.minimize{
+.playground .overlay.minimize {
     transform: scale(0);
 }
 

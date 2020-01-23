@@ -34,10 +34,13 @@
         this.value = value
         this.$el.classList.add(name)
     }
+    Square.prototype.reset = function () {
+        this.value = 0
+        this.$el.className = 'square'
+    }
 
     function Game(el) {
         this.$el = el
-        this.state = 'init'
         this.p1 = new Player(Player.random(), document.querySelector('#p1'))
         this.p2 = new Player(Player.random(this.p1.name), document.querySelector('#p2'))
         this.p1.render()
@@ -54,6 +57,7 @@
         this.$diceP2.addEventListener('click', Game.onClickDiceP2.bind(this))
 
         this.$start.addEventListener('click', this.onClickStart.bind(this))
+        this.$reset.addEventListener('click', this.onClickReset.bind(this))
 
         var $squares = Array.from(this.$el.querySelectorAll('.square'))
         var onClickSquare = this.onClickSquare.bind(this)
@@ -73,7 +77,6 @@
         this.$start.disabled = (this.p1.name === this.p2.name)
     }
     Game.prototype.onClickStart = function () {
-        this.state = 'start'
         this.setDiceHidden(true)
         this.p1.setActive(true)
         this.p2.setActive(false)
@@ -145,6 +148,17 @@
         setTimeout(() => { // 注意setTimeout里的this会发生变化，因此这里使用箭头函数
             this.$overlay.classList.remove('minimize')
         }, 300)
+    }
+    Game.prototype.onClickReset = function () {
+        this.setDiceHidden(false)
+        this.squares.forEach(square => square.reset())
+        this.p1.setActive(false)
+        this.p2.setActive(false)
+        this.$winner.hidden = true
+        this.$winner.className = 'winner'
+        this.$overlay.hidden = false
+        this.$start.hidden = false
+        this.$reset.disabled = true
     }
     document.addEventListener('DOMContentLoaded', function () {
         // 当初始的HTML文档被完全加载和解析完成之后，DOMContentLoaded事件被触发，而无需等待样式表、图像和子框架的完成加载。注意与onload的区别
